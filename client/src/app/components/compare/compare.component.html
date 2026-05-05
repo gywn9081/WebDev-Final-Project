@@ -1,0 +1,194 @@
+<!-- <div class="compare-container">
+  <div class="compare-header">
+    <a routerLink="/friends" class="back-link">Back to Friends</a>
+    <h2>Schedule Comparison</h2>
+    <p class="subtitle" *ngIf="friend">
+      Comparing your schedule with <strong>{{ friend.username }}</strong>
+    </p>
+  </div>
+
+  <div class="error-banner" *ngIf="errorMessage">{{ errorMessage }}</div>
+  <div class="loading" *ngIf="isLoading">Loading comparison...</div>
+
+  <div *ngIf="!isLoading && compareResult">
+    <div class="summary-row">
+      <div class="summary-card shared">
+        <div class="summary-count">{{ compareResult.sharedClasses.length }}</div>
+        <div class="summary-label">Shared Classes</div>
+      </div>
+      <div class="summary-card conflict">
+        <div class="summary-count">{{ compareResult.conflicts.length }}</div>
+        <div class="summary-label">Time Conflicts</div>
+      </div>
+      <div class="summary-card total">
+        <div class="summary-count">{{ compareResult.userScheduleCount }}</div>
+        <div class="summary-label">Your Courses</div>
+      </div>
+      <div class="summary-card total">
+        <div class="summary-count">{{ compareResult.friendScheduleCount }}</div>
+        <div class="summary-label">{{ friend?.username }}'s Courses</div>
+      </div>
+    </div>
+
+    <div class="section-card" *ngIf="compareResult.sharedClasses.length > 0">
+      <h3 class="section-title shared-title">Shared Classes</h3>
+      <div class="shared-list">
+        <div class="shared-entry" *ngFor="let sc of compareResult.sharedClasses">
+          <span class="shared-course">{{ sc.courseName }}</span>
+          <span class="shared-code" *ngIf="sc.courseCode">{{ sc.courseCode }}</span>
+          <span class="shared-time">{{ sc.days.join(', ') }} | {{ sc.startTime }} - {{ sc.endTime }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-section">
+      <h3>Weekly Schedule Comparison</h3>
+      <div class="legend">
+        <span class="legend-dot my-color"></span> Your classes
+        <span class="legend-dot friend-color"></span> {{ friend?.username }}'s classes
+        <span class="legend-dot shared-color"></span> Shared
+      </div>
+
+      <div class="compare-grid">
+        <div class="compare-day" *ngFor="let day of days">
+          <div class="compare-day-header">{{ day }}</div>
+          <div class="compare-cols">
+            <div class="compare-col">
+              <div class="col-label">You</div>
+              <div
+                class="entry-block"
+                *ngFor="let course of getMyCoursesForDay(day)"
+                [class.shared-block]="isSharedCourse(course.courseName)"
+                [style.border-left-color]="course.color"
+              >
+                <div class="entry-course">{{ course.courseName }}</div>
+                <div class="entry-time">{{ course.startTime }} - {{ course.endTime }}</div>
+              </div>
+              <div class="free-block" *ngIf="getMyCoursesForDay(day).length === 0">Free</div>
+            </div>
+            <div class="compare-col">
+              <div class="col-label">{{ friend?.username }}</div>
+              <div
+                class="entry-block friend-entry"
+                *ngFor="let course of getFriendCoursesForDay(day)"
+                [class.shared-block]="isSharedCourse(course.courseName)"
+                [style.border-left-color]="course.color"
+              >
+                <div class="entry-course">{{ course.courseName }}</div>
+                <div class="entry-time">{{ course.startTime }} - {{ course.endTime }}</div>
+              </div>
+              <div class="free-block" *ngIf="getFriendCoursesForDay(day).length === 0">Free</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+
+<div class="page-container">
+  <div class="compare-header">
+    <a routerLink="/friends" class="back-link">&#8592; Back to Friends</a>
+    <p class="header-label mono">COMPARISON</p>
+    <h2 class="header-title">Schedule Overlap</h2>
+    <p class="header-sub" *ngIf="friend">
+      You vs <strong>{{ friend.username }}</strong>
+    </p>
+  </div>
+
+  <div class="error-banner" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+  <div class="loading-state" *ngIf="isLoading">
+    <div class="loading-bar"></div>
+    <p>Comparing schedules...</p>
+  </div>
+
+  <div *ngIf="!isLoading && compareResult">
+    <!-- Summary -->
+    <div class="summary-row">
+      <div class="summary-card shared">
+        <span class="summary-count">{{ compareResult.sharedClasses.length }}</span>
+        <span class="summary-label">Shared Classes</span>
+      </div>
+      <div class="summary-card conflict">
+        <span class="summary-count">{{ compareResult.conflicts.length }}</span>
+        <span class="summary-label">Time Conflicts</span>
+      </div>
+      <div class="summary-card mine">
+        <span class="summary-count">{{ compareResult.userScheduleCount }}</span>
+        <span class="summary-label">Your Courses</span>
+      </div>
+      <div class="summary-card theirs">
+        <span class="summary-count">{{ compareResult.friendScheduleCount }}</span>
+        <span class="summary-label">{{ friend?.username }}'s Courses</span>
+      </div>
+    </div>
+
+    <!-- Shared Classes -->
+    <div class="shared-panel" *ngIf="compareResult.sharedClasses.length > 0">
+      <div class="panel-head">
+        <h3>Shared Classes</h3>
+        <span class="panel-badge">{{ compareResult.sharedClasses.length }} match{{ compareResult.sharedClasses.length !== 1 ? 'es' : '' }}</span>
+      </div>
+      <div class="shared-list">
+        <div class="shared-entry" *ngFor="let sc of compareResult.sharedClasses">
+          <span class="shared-course">{{ sc.courseName }}</span>
+          <span class="shared-code" *ngIf="sc.courseCode">{{ sc.courseCode }}</span>
+          <span class="shared-time">{{ sc.days.join(', ') }} &bull; {{ sc.startTime }}&ndash;{{ sc.endTime }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid -->
+    <div class="grid-section">
+      <div class="grid-head">
+        <h3>Week-by-Week</h3>
+        <div class="legend">
+          <div class="legend-item"><span class="legend-dot mine"></span> You</div>
+          <div class="legend-item"><span class="legend-dot friend"></span> {{ friend?.username }}</div>
+          <div class="legend-item"><span class="legend-dot shared"></span> Shared</div>
+        </div>
+      </div>
+
+      <div class="compare-grid" [class.with-weekend]="hasWeekendData()">
+        <div class="compare-day" *ngFor="let day of getVisibleDays()">
+          <div class="cday-header">
+            <span class="cday-name">{{ day.substring(0,3).toUpperCase() }}</span>
+          </div>
+          <div class="cday-cols">
+            <div class="cday-col">
+              <div class="col-label">YOU</div>
+              <div class="col-entries">
+                <div class="centry"
+                  *ngFor="let course of getMyCoursesForDay(day)"
+                  [class.shared-entry]="isSharedCourse(course.courseName)">
+                  <div class="centry-name">{{ course.courseName }}</div>
+                  <div class="centry-time">{{ course.startTime }}&ndash;{{ course.endTime }}</div>
+                </div>
+                <div class="col-free" *ngIf="getMyCoursesForDay(day).length === 0">
+                  <span class="free-label">FREE</span>
+                </div>
+              </div>
+            </div>
+            <div class="cday-col">
+              <div class="col-label">{{ friend?.username?.toUpperCase() }}</div>
+              <div class="col-entries">
+                <div class="centry friend-entry"
+                  *ngFor="let course of getFriendCoursesForDay(day)"
+                  [class.shared-entry]="isSharedCourse(course.courseName)">
+                  <div class="centry-name">{{ course.courseName }}</div>
+                  <div class="centry-time">{{ course.startTime }}&ndash;{{ course.endTime }}</div>
+                </div>
+                <div class="col-free" *ngIf="getFriendCoursesForDay(day).length === 0">
+                  <span class="free-label">FREE</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,209 @@
+<!-- <div class="auth-container">
+  <div class="auth-card">
+    <h1 class="auth-title">SyncSchedule</h1>
+    <p class="auth-subtitle">Coordinate your schedule with friends</p>
+
+    <div class="tab-toggle">
+      <button [class.active]="isLoginMode" (click)="isLoginMode = true">Log In</button>
+      <button [class.active]="!isLoginMode" (click)="isLoginMode = false">Register</button>
+    </div>
+
+    <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+    --> 
+    <!-- Login Form --> <!--
+    <form *ngIf="isLoginMode" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <div class="form-group">
+        <label for="loginEmail">Email</label>
+        <input
+          id="loginEmail"
+          type="email"
+          formControlName="email"
+          placeholder="you@example.com"
+          [class.invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+        />
+        <span
+          class="field-error"
+          *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+        >
+          A valid email is required.
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="loginPassword">Password</label>
+        <input
+          id="loginPassword"
+          type="password"
+          formControlName="password"
+          placeholder="Min. 6 characters"
+          [class.invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+        />
+        <span
+          class="field-error"
+          *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+        >
+          Password must be at least 6 characters.
+        </span>
+      </div>
+
+      <button type="submit" class="btn-primary" [disabled]="isLoading">
+        {{ isLoading ? 'Logging in...' : 'Log In' }}
+      </button>
+    </form>
+
+  --> 
+    <!-- Register Form --> <!--
+    <form *ngIf="!isLoginMode" [formGroup]="registerForm" (ngSubmit)="onRegister()">
+      <div class="form-group">
+        <label for="regUsername">Username</label>
+        <input
+          id="regUsername"
+          type="text"
+          formControlName="username"
+          placeholder="Choose a username"
+          [class.invalid]="registerForm.get('username')?.invalid && registerForm.get('username')?.touched"
+        />
+        <span
+          class="field-error"
+          *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched"
+        >
+          Username must be at least 3 characters.
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="regEmail">Email</label>
+        <input
+          id="regEmail"
+          type="email"
+          formControlName="email"
+          placeholder="you@example.com"
+          [class.invalid]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+        />
+        <span
+          class="field-error"
+          *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+        >
+          A valid email is required.
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="regPassword">Password</label>
+        <input
+          id="regPassword"
+          type="password"
+          formControlName="password"
+          placeholder="Min. 6 characters"
+          [class.invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+        />
+        <span
+          class="field-error"
+          *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+        >
+          Password must be at least 6 characters.
+        </span>
+      </div>
+
+      <button type="submit" class="btn-primary" [disabled]="isLoading">
+        {{ isLoading ? 'Creating account...' : 'Create Account' }}
+      </button>
+    </form>
+  </div>
+</div> -->
+
+
+
+<div class="auth-container">
+  <!-- Left decorative panel -->
+  <div class="auth-panel">
+    <div class="panel-content">
+      <div class="panel-brand">
+        <div class="panel-mark">SS</div>
+        <span class="panel-title">SyncSchedule</span>
+      </div>
+      <h1 class="panel-headline">
+        Plan together.<br><span>Study smarter.</span>
+      </h1>
+      <p class="panel-desc">
+        Compare your course schedule with friends, find shared classes, and
+        coordinate free time — all in one place.
+      </p>
+      <div class="panel-features">
+        <div class="feature-item"><span class="feature-dot"></span> Full schedule CRUD dashboard</div>
+        <div class="feature-item"><span class="feature-dot"></span> Friend network management</div>
+        <div class="feature-item"><span class="feature-dot"></span> Side-by-side schedule comparison</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right form panel -->
+  <div class="auth-form-panel">
+    <div class="auth-card">
+      <h2 class="auth-card-title">{{ isLoginMode ? 'Welcome back' : 'Get started' }}</h2>
+      <p class="auth-card-sub">{{ isLoginMode ? 'Sign in to your account' : 'Create your free account' }}</p>
+
+      <div class="tab-toggle">
+        <button [class.active]="isLoginMode" (click)="isLoginMode = true; errorMessage = ''">Log In</button>
+        <button [class.active]="!isLoginMode" (click)="isLoginMode = false; errorMessage = ''">Register</button>
+      </div>
+
+      <div class="error-banner" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+      <!-- Login Form -->
+      <form *ngIf="isLoginMode" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <div class="form-group">
+          <label for="loginEmail">Email</label>
+          <input id="loginEmail" type="email" formControlName="email" placeholder="you@example.com"
+            [class.invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" />
+          <span class="field-error" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+            A valid email is required.
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input id="loginPassword" type="password" formControlName="password" placeholder="Min. 6 characters"
+            [class.invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" />
+          <span class="field-error" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+            Password must be at least 6 characters.
+          </span>
+        </div>
+        <button type="submit" class="submit-btn" [disabled]="isLoading">
+          {{ isLoading ? 'Signing in...' : 'Sign In' }}
+        </button>
+      </form>
+
+      <!-- Register Form -->
+      <form *ngIf="!isLoginMode" [formGroup]="registerForm" (ngSubmit)="onRegister()">
+        <div class="form-group">
+          <label for="regUsername">Username</label>
+          <input id="regUsername" type="text" formControlName="username" placeholder="Choose a username"
+            [class.invalid]="registerForm.get('username')?.invalid && registerForm.get('username')?.touched" />
+          <span class="field-error" *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
+            Username must be at least 3 characters.
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="regEmail">Email</label>
+          <input id="regEmail" type="email" formControlName="email" placeholder="you@example.com"
+            [class.invalid]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" />
+          <span class="field-error" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+            A valid email is required.
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="regPassword">Password</label>
+          <input id="regPassword" type="password" formControlName="password" placeholder="Min. 6 characters"
+            [class.invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" />
+          <span class="field-error" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+            Password must be at least 6 characters.
+          </span>
+        </div>
+        <button type="submit" class="submit-btn" [disabled]="isLoading">
+          {{ isLoading ? 'Creating account...' : 'Create Account' }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

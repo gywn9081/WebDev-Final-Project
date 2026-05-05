@@ -1,0 +1,142 @@
+<!-- <div class="friends-container">
+  <h2>Friends</h2>
+
+  <div class="message" [class.error]="messageType === 'error'" *ngIf="message">
+    {{ message }}
+  </div>
+
+  <div class="search-card">
+    <h3>Find Users</h3>
+    <div class="search-row">
+      <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        placeholder="Search by username..."
+        (keyup.enter)="searchUsers()"
+      />
+      <button class="btn-primary" (click)="searchUsers()" [disabled]="isSearching">
+        {{ isSearching ? 'Searching...' : 'Search' }}
+      </button>
+    </div>
+
+    <div class="search-results" *ngIf="searchResults.length > 0">
+      <div class="user-row" *ngFor="let user of searchResults">
+        <div class="user-info">
+          <span class="username">{{ user.username }}</span>
+          <span class="email">{{ user.email }}</span>
+        </div>
+        <button
+          *ngIf="!isFriend(user._id)"
+          class="btn-add"
+          (click)="addFriend(user._id, user.username)"
+        >
+          Add Friend
+        </button>
+        <span *ngIf="isFriend(user._id)" class="already-friend">Already friends</span>
+      </div>
+    </div>
+
+    <div class="no-results" *ngIf="searchResults.length === 0 && searchQuery && !isSearching">
+      No users found matching "{{ searchQuery }}"
+    </div>
+  </div>
+
+  <div class="friends-list-card">
+    <h3>My Friends ({{ friends.length }})</h3>
+    <div class="loading" *ngIf="isLoading">Loading friends...</div>
+
+    <div class="friend-row" *ngFor="let friend of friends">
+      <div class="user-info">
+        <span class="username">{{ friend.username }}</span>
+        <span class="email">{{ friend.email }}</span>
+      </div>
+      <div class="friend-actions">
+        <button class="btn-compare" (click)="compareWithFriend(friend._id)">
+          Compare Schedules
+        </button>
+        <button class="btn-remove" (click)="removeFriend(friend._id, friend.username)">
+          Remove
+        </button>
+      </div>
+    </div>
+
+    <div class="no-friends" *ngIf="friends.length === 0 && !isLoading">
+      You have not added any friends yet. Use the search above to find people.
+    </div>
+  </div>
+</div> -->
+
+
+<div class="page-container">
+  <div class="friends-header">
+    <div>
+      <p class="header-label mono">NETWORK</p>
+      <h2 class="header-title">Friends</h2>
+    </div>
+  </div>
+
+  <div class="toast" [class.error]="messageType === 'error'" *ngIf="message">{{ message }}</div>
+
+  <div class="friends-layout">
+    <!-- Search -->
+    <div class="section-card">
+      <div class="section-head">
+        <h3>Find Users</h3>
+      </div>
+      <div class="section-body">
+        <div class="search-row">
+          <input class="search-input" type="text" [(ngModel)]="searchQuery"
+            placeholder="Search by username..." (keyup.enter)="searchUsers()" />
+          <button class="search-btn" (click)="searchUsers()" [disabled]="isSearching">
+            {{ isSearching ? '...' : 'Search' }}
+          </button>
+        </div>
+
+        <div class="search-results" *ngIf="searchResults.length > 0">
+          <div class="user-row" *ngFor="let user of searchResults">
+            <div class="user-info">
+              <span class="username">{{ user.username }}</span>
+              <span class="email">{{ user.email }}</span>
+            </div>
+            <div class="row-actions">
+              <button *ngIf="!isFriend(user._id)" class="btn-add" (click)="addFriend(user._id, user.username)">
+                + Add
+              </button>
+              <span *ngIf="isFriend(user._id)" class="already-friend">Friends</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="no-results" *ngIf="searchResults.length === 0 && searchQuery && !isSearching">
+          No users found for "{{ searchQuery }}"
+        </div>
+      </div>
+    </div>
+
+    <!-- Friends list -->
+    <div class="section-card">
+      <div class="section-head">
+        <h3>My Friends</h3>
+        <span class="section-count mono">{{ friends.length }}</span>
+      </div>
+      <div class="section-body">
+        <div class="loading-text mono" *ngIf="isLoading">Loading...</div>
+
+        <div class="friend-row" *ngFor="let friend of friends">
+          <div class="user-info">
+            <span class="username">{{ friend.username }}</span>
+            <span class="email">{{ friend.email }}</span>
+          </div>
+          <div class="row-actions">
+            <button class="btn-compare" (click)="compareWithFriend(friend._id)">Compare</button>
+            <button class="btn-remove" (click)="removeFriend(friend._id, friend.username)" title="Remove">&#10005;</button>
+          </div>
+        </div>
+
+        <div class="no-friends" *ngIf="friends.length === 0 && !isLoading">
+          No friends yet. Search above to find people.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

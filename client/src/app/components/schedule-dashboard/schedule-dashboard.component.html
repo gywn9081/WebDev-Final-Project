@@ -1,0 +1,236 @@
+<!-- <div class="dashboard-container">
+  <div class="dashboard-header">
+    <div>
+      <h2>My Schedule</h2>
+      <p class="subtitle">{{ currentUser.username }}'s weekly course schedule</p>
+    </div>
+    <button class="btn-primary" (click)="openAddForm()">+ Add Course</button>
+  </div>
+
+  <div class="error-banner" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+  <div class="form-overlay" *ngIf="showForm">
+    <div class="form-card">
+      <h3>{{ isEditing ? 'Edit Course' : 'Add Course' }}</h3>
+
+      <div class="form-group">
+        <label>Course Name *</label>
+        <input type="text" [(ngModel)]="form.courseName" placeholder="e.g. Web Development II" />
+      </div>
+
+      <div class="form-group">
+        <label>Course Code</label>
+        <input type="text" [(ngModel)]="form.courseCode" placeholder="e.g. CS 4420" />
+      </div>
+
+      <div class="form-group">
+        <label>Days *</label>
+        <div class="day-selector">
+          <button
+            *ngFor="let day of days"
+            type="button"
+            [class.selected]="isDaySelected(day)"
+            (click)="toggleDay(day)"
+          >
+            {{ day.substring(0, 3) }}
+          </button>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Start Time *</label>
+          <input type="time" [(ngModel)]="form.startTime" />
+        </div>
+        <div class="form-group">
+          <label>End Time *</label>
+          <input type="time" [(ngModel)]="form.endTime" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Location</label>
+        <input type="text" [(ngModel)]="form.location" placeholder="e.g. Tech Hall 101" />
+      </div>
+
+      <div class="form-group">
+        <label>Color</label>
+        <div class="color-picker">
+          <button
+            *ngFor="let color of colors"
+            type="button"
+            class="color-swatch"
+            [style.background]="color"
+            [class.selected]="form.color === color"
+            (click)="form.color = color"
+          ></button>
+        </div>
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+      <div class="form-actions">
+        <button class="btn-secondary" (click)="cancelForm()">Cancel</button>
+        <button class="btn-primary" (click)="onSubmit()">
+          {{ isEditing ? 'Save Changes' : 'Add Course' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="loading" *ngIf="isLoading">Loading schedule...</div>
+
+  <div class="week-grid" *ngIf="!isLoading" [class.with-weekend]="hasWeekendClasses()">
+    <div class="day-column" *ngFor="let day of getVisibleDays()">
+      <div class="day-header">{{ day }}</div>
+      <div class="day-body">
+        <div
+          class="schedule-card"
+          *ngFor="let entry of getSchedulesForDay(day)"
+          [style.border-left-color]="entry.color"
+        >
+          <div class="course-name">{{ entry.courseName }}</div>
+          <div class="course-meta" *ngIf="entry.courseCode">{{ entry.courseCode }}</div>
+          <div class="course-time">{{ entry.startTime }} - {{ entry.endTime }}</div>
+          <div class="course-location" *ngIf="entry.location">{{ entry.location }}</div>
+          <div class="card-actions">
+            <button class="btn-edit" (click)="openEditForm(entry)">Edit</button>
+            <button class="btn-delete" (click)="deleteSchedule(entry._id!)">Delete</button>
+          </div>
+        </div>
+        <div class="empty-day" *ngIf="getSchedulesForDay(day).length === 0">Free</div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+<div class="page-container">
+
+  <!-- Header -->
+  <div class="dashboard-header">
+    <div class="header-left">
+      <p class="header-label mono">SCHEDULE</p>
+      <h2 class="header-title">{{ currentUser.username }}'s Week</h2>
+    </div>
+    <button class="btn-primary add-btn" (click)="openAddForm()">+ Add Course</button>
+  </div>
+
+  <!-- Stats Row -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <span class="stat-value mono">{{ totalCourses }}</span>
+      <span class="stat-label">Total Courses</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-value mono">{{ busyDays }}</span>
+      <span class="stat-label">Busy Days</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-value mono">{{ earliestClass }}</span>
+      <span class="stat-label">Earliest Class</span>
+    </div>
+  </div>
+
+  <div class="error-banner" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+  <!-- Form Modal -->
+  <div class="form-overlay" *ngIf="showForm" (click)="cancelForm()">
+    <div class="form-card" (click)="$event.stopPropagation()">
+      <div class="form-header">
+        <h3>{{ isEditing ? 'Edit Course' : 'New Course' }}</h3>
+        <button class="form-close" (click)="cancelForm()">&#10005;</button>
+      </div>
+
+      <div class="form-group">
+        <label>Course Name *</label>
+        <input type="text" [(ngModel)]="form.courseName" placeholder="e.g. Web Development II" />
+      </div>
+      <div class="form-group">
+        <label>Course Code</label>
+        <input type="text" [(ngModel)]="form.courseCode" placeholder="e.g. CS 4420" />
+      </div>
+      <div class="form-group">
+        <label>Days *</label>
+        <div class="day-selector">
+          <button *ngFor="let day of days" type="button"
+            [class.selected]="isDaySelected(day)"
+            (click)="toggleDay(day)">
+            {{ day.substring(0, 3).toUpperCase() }}
+          </button>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Start Time *</label>
+          <input type="time" [(ngModel)]="form.startTime" />
+        </div>
+        <div class="form-group">
+          <label>End Time *</label>
+          <input type="time" [(ngModel)]="form.endTime" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Location</label>
+        <input type="text" [(ngModel)]="form.location" placeholder="e.g. Tech Hall 101" />
+      </div>
+      <div class="form-group">
+        <label>Color</label>
+        <div class="color-picker">
+          <button *ngFor="let color of colors" type="button" class="color-swatch"
+            [style.background]="color"
+            [class.selected]="form.color === color"
+            (click)="form.color = color">
+          </button>
+        </div>
+      </div>
+
+      <div class="form-error" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+      <div class="form-actions">
+        <button class="btn-secondary" (click)="cancelForm()">Cancel</button>
+        <button class="btn-primary" (click)="onSubmit()">
+          {{ isEditing ? 'Save Changes' : 'Add Course' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading-state" *ngIf="isLoading">
+    <div class="loading-bar"></div>
+    <p>Loading schedule...</p>
+  </div>
+
+  <!-- Week Grid -->
+  <div class="week-grid" *ngIf="!isLoading" [class.with-weekend]="hasWeekendClasses()">
+    <div class="day-column" *ngFor="let day of getVisibleDays()">
+      <div class="day-header">
+        <span class="day-name">{{ day.substring(0, 3).toUpperCase() }}</span>
+        <span class="day-count mono" *ngIf="getSchedulesForDay(day).length > 0">
+          {{ getSchedulesForDay(day).length }}
+        </span>
+      </div>
+      <div class="day-body">
+        <div class="schedule-card" *ngFor="let entry of getSchedulesForDay(day)"
+          [style.--entry-color]="entry.color">
+          <div class="entry-accent"></div>
+          <div class="entry-content">
+            <div class="entry-name">{{ entry.courseName }}</div>
+            <div class="entry-code mono" *ngIf="entry.courseCode">{{ entry.courseCode }}</div>
+            <div class="entry-time mono">{{ entry.startTime }} &ndash; {{ entry.endTime }}</div>
+            <div class="entry-location" *ngIf="entry.location">{{ entry.location }}</div>
+          </div>
+          <div class="entry-actions">
+            <button class="action-btn edit-btn" (click)="openEditForm(entry)" title="Edit">&#9998;</button>
+            <button class="action-btn delete-btn" (click)="deleteSchedule(entry._id!)" title="Delete">&#10005;</button>
+          </div>
+        </div>
+        <div class="free-day" *ngIf="getSchedulesForDay(day).length === 0">
+          <span class="free-label">FREE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

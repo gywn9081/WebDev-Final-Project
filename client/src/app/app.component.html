@@ -1,0 +1,49 @@
+<!-- <nav class="navbar" *ngIf="currentUser$ | async as user">
+  <div class="nav-brand">
+    <a routerLink="/dashboard">SyncSchedule</a>
+  </div>
+  <div class="nav-links">
+    <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+    <a routerLink="/friends" routerLinkActive="active">Friends</a>
+    <span class="nav-user">{{ user.username }}</span>
+    <button class="btn-logout" (click)="logout()">Logout</button>
+  </div>
+</nav>
+
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main> -->
+
+
+<nav class="navbar" *ngIf="currentUser$ | async as user">
+  <div class="nav-brand">
+    <a routerLink="/dashboard">
+      <span class="brand-mark">SS</span>
+      <span class="brand-name">SyncSchedule</span>
+    </a>
+  </div>
+
+  <div class="nav-links">
+    <a routerLink="/dashboard" routerLinkActive="active">
+      <span class="nav-icon">&#9632;</span> Dashboard
+    </a>
+    <a routerLink="/friends" routerLinkActive="active">
+      <span class="nav-icon">&#9650;</span> Friends
+    </a>
+  </div>
+
+  <div class="nav-right">
+    <span class="nav-user mono">{{ user.username }}</span>
+
+    <button class="theme-toggle" (click)="toggleTheme()" [title]="isDark ? 'Switch to light mode' : 'Switch to dark mode'">
+      <span class="theme-icon" *ngIf="isDark">&#9788;</span>
+      <span class="theme-icon" *ngIf="!isDark">&#9790;</span>
+    </button>
+
+    <button class="btn-logout" (click)="logout()">Logout</button>
+  </div>
+</nav>
+
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>
