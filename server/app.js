@@ -23,11 +23,6 @@ mongoose.connect(MONGO_URI)
 app.use('/api', router);
 
 // Serve Angular build in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/dist/client')));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/dist/client/index.html'));
-  });
-}
+// No we have seperated the front and backend out
 
 module.exports = app;
