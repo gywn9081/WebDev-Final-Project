@@ -33,7 +33,10 @@
   </div>
 
   <div class="nav-right">
-    <span class="nav-user mono">{{ user.username }}</span>
+    <a routerLink="/profile" class="nav-user-link profile-btn" routerLinkActive="active-user">
+      <span class="settings-icon">&#9881;</span>
+      <span class="nav-user mono">{{ user.username }}</span>
+    </a>
 
     <button class="theme-toggle" (click)="toggleTheme()" [title]="isDark ? 'Switch to light mode' : 'Switch to dark mode'">
       <span class="theme-icon" *ngIf="isDark">&#9788;</span>

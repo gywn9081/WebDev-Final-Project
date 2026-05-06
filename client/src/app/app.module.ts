@@ -10,6 +10,7 @@ import { AuthComponent } from './components/auth/auth.component';
 import { ScheduleDashboardComponent } from './components/schedule-dashboard/schedule-dashboard.component';
 import { FriendListComponent } from './components/friend-list/friend-list.component';
 import { CompareComponent } from './components/compare/compare.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { CompareComponent } from './components/compare/compare.component';
     AuthComponent,
     ScheduleDashboardComponent,
     FriendListComponent,
+    ProfileComponent,
     CompareComponent,
   ],
   imports: [

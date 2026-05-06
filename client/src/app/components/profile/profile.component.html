@@ -1,0 +1,118 @@
+<div class="page-container">
+  <div class="profile-header">
+    <p class="header-label mono">ACCOUNT</p>
+    <h2 class="header-title">Profile Settings</h2>
+  </div>
+
+  <div class="profile-layout">
+
+    <!-- Left column -->
+    <div class="profile-col">
+
+      <!-- Identity card -->
+      <div class="identity-card">
+        <div class="avatar">{{ currentUser.username.charAt(0).toUpperCase() }}</div>
+        <div class="identity-info">
+          <span class="identity-name">{{ currentUser.username }}</span>
+          <span class="identity-email mono">{{ currentUser.email }}</span>
+        </div>
+      </div>
+
+      <!-- Update Profile -->
+      <div class="section-card">
+        <div class="section-head">
+          <h3>Update Profile</h3>
+        </div>
+        <div class="section-body">
+          <div class="msg-banner" [class.error]="profileMessageType === 'error'" *ngIf="profileMessage">
+            {{ profileMessage }}
+          </div>
+
+          <div class="form-group">
+            <label>Username</label>
+            <input type="text" [(ngModel)]="username" placeholder="Username" />
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" [(ngModel)]="email" placeholder="email@example.com" />
+          </div>
+
+          <button class="btn-primary" (click)="updateProfile()" [disabled]="isUpdatingProfile">
+            {{ isUpdatingProfile ? 'Saving...' : 'Save Changes' }}
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right column -->
+    <div class="profile-col">
+
+      <!-- Change Password -->
+      <div class="section-card">
+        <div class="section-head">
+          <h3>Change Password</h3>
+        </div>
+        <div class="section-body">
+          <div class="msg-banner" [class.error]="passwordMessageType === 'error'" *ngIf="passwordMessage">
+            {{ passwordMessage }}
+          </div>
+
+          <div class="form-group">
+            <label>Current Password</label>
+            <input type="password" [(ngModel)]="currentPassword" placeholder="Enter current password" />
+          </div>
+          <div class="form-group">
+            <label>New Password</label>
+            <input type="password" [(ngModel)]="newPassword" placeholder="Min. 6 characters" />
+          </div>
+          <div class="form-group">
+            <label>Confirm New Password</label>
+            <input type="password" [(ngModel)]="confirmPassword" placeholder="Repeat new password" />
+          </div>
+
+          <button class="btn-primary" (click)="changePassword()" [disabled]="isChangingPassword">
+            {{ isChangingPassword ? 'Updating...' : 'Change Password' }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Danger Zone -->
+      <div class="section-card danger-card">
+        <div class="section-head danger-head">
+          <h3>Danger Zone</h3>
+        </div>
+        <div class="section-body">
+          <p class="danger-desc">
+            Permanently delete your account and all associated schedules. This action cannot be undone.
+          </p>
+
+          <button class="btn-danger-outline" (click)="showDeleteConfirm = !showDeleteConfirm">
+            Delete My Account
+          </button>
+
+          <div class="delete-confirm" *ngIf="showDeleteConfirm">
+            <p class="confirm-instruction">
+              Type <strong>{{ currentUser.username }}</strong> to confirm deletion:
+            </p>
+            <input
+              type="text"
+              [(ngModel)]="deleteConfirmText"
+              [placeholder]="currentUser.username"
+              class="confirm-input"
+            />
+            <div class="confirm-actions">
+              <button class="btn-cancel" (click)="showDeleteConfirm = false; deleteConfirmText = ''">
+                Cancel
+              </button>
+              <button class="btn-danger" (click)="confirmDelete()" [disabled]="isDeletingAccount">
+                {{ isDeletingAccount ? 'Deleting...' : 'Permanently Delete' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

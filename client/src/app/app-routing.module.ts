@@ -5,6 +5,7 @@ import { AuthComponent } from './components/auth/auth.component';
 import { ScheduleDashboardComponent } from './components/schedule-dashboard/schedule-dashboard.component';
 import { FriendListComponent } from './components/friend-list/friend-list.component';
 import { CompareComponent } from './components/compare/compare.component';
+import { ProfileComponent } from './components/profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'auth', component: AuthComponent },
   { path: 'dashboard', component: ScheduleDashboardComponent, canActivate: [AuthGuard] },
   { path: 'friends', component: FriendListComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'compare/:friendId', component: CompareComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/dashboard' },
 ];
