@@ -73,25 +73,46 @@
   background: rgba(255, 255, 255, 0.05);
 } */
 
-.profile-btn:hover {
+/* .profile-btn:hover {
   background: rgba(255, 255, 255, 0.15);
   transform: translateY(-1px);
 }
 
 .settings-icon {
-  font-size: 1.5rem; /* Increased size - adjust this as needed */
+  font-size: 1.5rem;
   line-height: 1;
   display: inline-block;
   vertical-align: middle;
-  color: #a0a0a0; /* Optional: adjust color to match your theme */
+  color: #a0a0a0;
 }
 
 .profile-btn:hover .settings-icon {
   color: #ffffff;
-  /* Optional: make it spin slightly on hover for a nice effect */
+  transform: rotate(30deg);
+  transition: transform 0.3s ease;
+} */
+
+
+.profile-btn:hover {
+  background: var(--accent-dim);
+  transform: translateY(-1px);
+}
+ 
+.settings-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  display: inline-block;
+  vertical-align: middle;
+  color: var(--text-muted);
+}
+ 
+.profile-btn:hover .settings-icon {
+  color: var(--accent);
   transform: rotate(30deg);
   transition: transform 0.3s ease;
 }
+
+
 
 .nav-user {
   font-weight: 500;
