@@ -177,3 +177,9 @@ The Angular dev server proxies all `/api` requests to the Express backend automa
 
 - Caleb - Frontend (Angular components, services, UI)
 - Henry - Backend (Express routes, controllers, Mongoose models, seed)
+
+## Links
+
+[Vercel Deployment Link](https://web-dev-final-project-black.vercel.app)
+
+[Github Hosting Link](https://github.com/gywn9081/WebDev-Final-Project)
