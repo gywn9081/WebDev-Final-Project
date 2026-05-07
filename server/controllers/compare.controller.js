@@ -1,4 +1,4 @@
-const { Schedule } = require('../models');
+const Schedule = require('../models/Schedule');
 
 // Convert HH:MM time string to minutes since midnight for comparison
 function timeToMinutes(timeStr) {

@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { User, Schedule } = require('../models');
+const User = require('../models/User')
+const Schedule = require('../models/Schedule')
 
 const JWT_SECRET = process.env.JWT_SECRET || 'syncschedule_secret_key';
 
@@ -106,6 +107,8 @@ const updateUser = async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
+    // Check if email is good format
+
     // Check for username/email conflicts with other users
     if (username !== user.username || email !== user.email) {
       const conflict = await User.findOne({
@@ -135,6 +138,7 @@ const updateUser = async (req, res) => {
       user.password = await bcrypt.hash(newPassword, 10);
     }
 
+    // Save user back to database
     await user.save();
 
     // Return a fresh token so the navbar username updates immediately

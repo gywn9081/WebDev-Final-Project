@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const User = require('../models/User');
 
 // GET /api/friends/:userId
 const getFriends = async (req, res) => {
@@ -49,6 +49,7 @@ const addFriend = async (req, res) => {
   }
 };
 
+// This is both update and delete for a CRUD operation
 // DELETE /api/friends/:userId/remove/:friendId
 const removeFriend = async (req, res) => {
   try {

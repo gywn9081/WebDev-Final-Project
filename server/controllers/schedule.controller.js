@@ -1,4 +1,4 @@
-const { Schedule } = require('../models');
+const Schedule = require('../models/Schedule');
 
 // GET /api/schedules/:userId
 const getSchedulesByUser = async (req, res) => {

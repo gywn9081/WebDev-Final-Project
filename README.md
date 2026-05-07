@@ -11,11 +11,11 @@ SyncSchedule allows university students to input their weekly course schedules, 
 ```
 syncschedule/
   server/               Express + Node.js MVC backend
-    models.js           Mongoose schemas (User, Schedule)
     app.js              Express app with middleware and route wiring
     server.js           HTTP server entry point
     router.js           Top-level API router
     seed.js             Database seed script
+    models/             Mongoose schemas (User, Schedule)
     routes/             Route definitions
     controllers/        Business logic handlers
     .env.example        Environment variable template

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const { User, Schedule } = require('./models');
+const User = require('./models/User')
+const Schedule = require('./models/Schedule')
 require('dotenv').config();
 
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/syncschedule';
