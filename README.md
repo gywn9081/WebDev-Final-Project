@@ -183,3 +183,11 @@ The Angular dev server proxies all `/api` requests to the Express backend automa
 [Vercel Deployment Link](https://web-dev-final-project-black.vercel.app)
 
 [Github Hosting Link](https://github.com/gywn9081/WebDev-Final-Project)
+
+
+## Notes
+
+Because the backend is hosted on a free router instance the first request in a while will take a long time while the backend boots up.
+This is normal and render was still used because it is free. The front end is hosted on vercel with some routing via configs. Finally the database is hosted on mongodb atlas in a free instance.
+
+All user data was submitted after the disclaimer that the data would be presented and that personal details like a password are hashed and plain text alternatives are not available.
